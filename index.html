@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AlgèbreIA – Explore l’univers des codes</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{font-family:Montserrat,system-ui,sans-serif;background:#009a9a;color:#fff;min-height:100vh;padding:24px}
+.hero{position:relative;max-width:1280px;margin:0 auto;min-height:680px;border-radius:4px;overflow:hidden;padding:28px 40px 40px;
+ background:radial-gradient(circle at 75% 15%,#1d6b4f 0,transparent 45%),radial-gradient(circle at 20% 80%,#0a5c66 0,transparent 55%),linear-gradient(135deg,#0b4f5a,#06303c 70%,#041f2b);box-shadow:0 30px 50px -20px rgba(0,0,0,.4)}
+.bg{position:absolute;inset:0;font-weight:800;color:rgba(255,255,255,.05);pointer-events:none;overflow:hidden}
+.bg span{position:absolute;font-size:150px}
+nav{position:relative;display:flex;align-items:center;gap:34px;flex-wrap:wrap}
+.logo{width:46px;height:46px;border-radius:50%;background:#fff;color:#0b5560;display:grid;place-items:center;font-size:26px;font-weight:800}
+nav a{color:#fff;text-decoration:none;font-weight:600;cursor:pointer}
+.sp{flex:1}
+.search{background:#f1f1f1;border-radius:999px;padding:12px 22px;width:280px;display:flex;color:#777}
+.search input{border:0;background:none;outline:none;font:inherit;width:100%;color:#333}
+.login{background:#0b6b72;border:0;color:#fff;font:600 15px Montserrat,sans-serif;padding:14px 26px;cursor:pointer}
+.main{position:relative;display:flex;gap:40px;margin-top:70px;flex-wrap:wrap;align-items:flex-start}
+.txt{flex:1 1 380px;display:flex;gap:30px}
+.bar{width:4px;background:#fff;align-self:stretch;min-height:240px}
+h1{font-size:clamp(40px,6vw,76px);line-height:1;font-weight:800;letter-spacing:-1px}
+h1 .o{color:transparent;-webkit-text-stroke:2px #fff}
+.txt p{font-style:italic;font-size:14px;line-height:2;max-width:430px;margin:36px 0 30px;opacity:.92}
+.book{background:#0b6b72;border:0;color:#fff;font:800 20px Montserrat,sans-serif;padding:20px 52px;cursor:pointer;text-transform:uppercase}
+.arrows{margin-left:60px;font-size:26px;letter-spacing:4px}
+.cards{flex:1 1 520px;display:flex;gap:26px;margin-top:60px;flex-wrap:wrap}
+.card{flex:1 1 150px;background:#f5f6f7;color:#555;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.cv{height:150px;display:grid;place-items:center;font-size:56px;font-weight:800;color:#fff}
+.c1{background:linear-gradient(135deg,#12849a,#0a4a66)}.c2{background:linear-gradient(135deg,#2c8a5a,#0e4d3b)}.c3{background:linear-gradient(135deg,#c1815a,#7a4a45)}
+.cb{padding:20px}.cb h3{font-size:18px;line-height:1.3;margin-bottom:10px}.cb p{font-size:11px;color:#999;line-height:1.8;margin-bottom:16px}
+.rm{background:#0b6b72;color:#fff;border:0;font:700 12px Montserrat,sans-serif;padding:11px 18px;cursor:pointer;text-transform:uppercase}
+.chat{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:9;padding:16px}
+.chat.on{display:flex}
+.panel{background:#f5f6f7;color:#222;width:min(720px,100%);height:min(86vh,720px);display:flex;flex-direction:column}
+.ph{background:#0b6b72;color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px}
+.ph b{flex:1}.ph button{background:none;border:0;color:#fff;font-size:22px;cursor:pointer}
+#msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.m{padding:10px 14px;max-width:88%;font-size:15px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.u{align-self:flex-end;background:#cfe9e9}.a{align-self:flex-start;background:#fff;border:1px solid #ddd}
+.m code,.m pre{font-family:ui-monospace,Consolas,monospace;font-size:13px}.m pre{background:#eef1f2;padding:10px;overflow-x:auto;margin:6px 0}
+.pf{display:flex;gap:8px;padding:12px;border-top:1px solid #ddd}
+.pf textarea{flex:1;border:1px solid #ccc;padding:10px;font:inherit;resize:none;height:46px}
+.pf button{background:#0b6b72;color:#fff;border:0;padding:0 20px;font-weight:700;cursor:pointer}
+.key{padding:10px 16px;background:#fff3cd;color:#664d03;font-size:13px;display:none}
+@media(max-width:700px){.hero{padding:20px}.arrows{display:none}.search{width:100%}}
+</style>
+</head>
+<body>
+<section class="hero">
+ <div class="bg"><span style="left:5%;top:30%">∑</span><span style="left:45%;top:8%">GF(2⁴)</span><span style="left:70%;top:60%">⊕</span><span style="left:30%;top:70%">[7,4]</span></div>
+ <nav>
+  <div class="logo">∑</div>
+  <a onclick="openChat('Codes')">Codes</a><a onclick="openChat('Algèbre')">Algèbre</a><a onclick="openChat('Exercices')">Exercices</a><a onclick="openChat('Code')">Code</a>
+  <div class="sp"></div>
+  <div class="search"><input id="q" placeholder="Rechercher une notion…" onkeydown="if(event.key==='Enter')openChat('Codes',this.value)"> 🔍</div>
+  <button class="login" onclick="openChat('Codes')">💬 Discuter</button>
+ </nav>
+ <div class="main">
+  <div class="txt">
+   <div class="bar"></div>
+   <div>
+    <h1>EXPLORE<br>L’UNIVERS<br><span class="o">DES CODES</span></h1>
+    <p>Une IA générative spécialisée en théorie des codes correcteurs et en algèbre : corps finis, codes cycliques, BCH, groupes, anneaux. Cours, preuves, exercices corrigés et code Maple, Python ou SageMath.</p>
+    <button class="book" onclick="openChat('Codes')">Commencer ▶</button><span class="arrows">◀◀◀◀◀</span>
+   </div>
+  </div>
+  <div class="cards">
+   <div class="card"><div class="cv c1">[n,k]</div><div class="cb"><h3>Théorie des codes</h3><p>Hamming, codes cycliques, BCH, Reed-Solomon, syndromes et décodage.</p><button class="rm" onclick="openChat('Codes')">Ouvrir ▶</button></div></div>
+   <div class="card"><div class="cv c2">GF(q)</div><div class="cb"><h3>Algèbre</h3><p>Groupes, anneaux, idéaux, corps finis, extensions et démonstrations.</p><button class="rm" onclick="openChat('Algèbre')">Ouvrir ▶</button></div></div>
+   <div class="card"><div class="cv c3">TD</div><div class="cb"><h3>Exercices & code</h3><p>Exercices de niveau Master avec corrigés, programmes Python et Maple.</p><button class="rm" onclick="openChat('Exercices')">Ouvrir ▶</button></div></div>
+  </div>
+ </div>
+</section>
+
+<div class="chat" id="chat"><div class="panel">
+ <div class="ph"><b id="ptitle">Codes</b><button onclick="closeChat()">✕</button></div>
+  <div id="msgs"></div>
+ <div class="pf"><textarea id="in" placeholder="Pose ta question…"></textarea><button onclick="send()">Envoyer</button></div>
+</div></div>
+
+<script>
+// ====== À MODIFIER : colle ici l'adresse de ton Worker Cloudflare (étape 3 du guide) ======
+const WORKER_URL="https://algebria-api.banjinavaovao123.workers.dev/";
+// ==========================================================================================
+const DAILY_LIMIT=30;
+let mode="Codes",hist=[],busy=false;const $=id=>document.getElementById(id);
+function left(){const d=new Date().toISOString().slice(0,10);let o={};try{o=JSON.parse(localStorage.getItem("alg_n")||"{}")}catch(e){}if(o.d!==d)o={d:d,n:0};return o}
+function count(){const o=left();o.n++;try{localStorage.setItem("alg_n",JSON.stringify(o))}catch(e){}}
+function openChat(m,q){if(m!==mode){hist=[];$("msgs").innerHTML=""}mode=m;$("ptitle").textContent="AlgèbreIA · "+m;$("chat").classList.add("on");if(q){$("in").value=q;send()}}
+function closeChat(){$("chat").classList.remove("on")}
+function esc(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function set(d,t){d.innerHTML=esc(t).replace(/```\w*\n?([\s\S]*?)```/g,"<pre>$1</pre>").replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>")}
+function add(c,t){const d=document.createElement("div");d.className="m "+c;set(d,t);$("msgs").appendChild(d);$("msgs").scrollTop=1e9;return d}
+async function send(){
+ const t=$("in").value.trim();if(!t||busy)return;
+ if(left().n>=DAILY_LIMIT){add("a","Limite de "+DAILY_LIMIT+" messages par jour atteinte. Reviens demain !");return}
+ if(WORKER_URL.indexOf("COLLE-ICI")>-1){add("a","Configuration incomplète : l’adresse du Worker n’a pas été renseignée dans index.html.");return}
+ busy=true;$("in").value="";add("u",t);hist.push({role:"user",content:t});
+ const b=add("a","Réflexion…");
+ try{
+  const r=await fetch(WORKER_URL,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({mode:mode,messages:hist})});
+  let d;try{d=await r.json()}catch(e){throw new Error("réponse invalide du serveur")}
+  if(!r.ok||d.error)throw new Error(d.error||("erreur "+r.status));
+  set(b,d.text);hist.push({role:"assistant",content:d.text});count();
+ }catch(e){hist.pop();set(b,"Erreur : "+e.message+". Réessaie dans un instant.")}
+ busy=false;$("msgs").scrollTop=1e9;
+}
+$("in").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}});
+</script>
+</body>
+</html>
